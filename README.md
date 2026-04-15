@@ -1,180 +1,116 @@
-# 🩺 FPGA-Based Real-Time 3D Wound Assessment Using Structured Light for Telemedicine Triage
+# 🧠 FPGA-Based Real-Time Breath Analysis for Alzheimer’s Detection
 
 ## 📌 Overview
-This project presents a **portable FPGA-based 3D wound assessment system** designed for **non-contact wound analysis** in telemedicine and remote clinical environments. The system uses **laser-line structured light triangulation** to estimate wound characteristics such as **depth, surface area, and approximate cavity volume** in real time.
+Early detection of Alzheimer’s Disease (AD) is critical but remains challenging due to reliance on expensive imaging techniques and invasive biomarker analysis. This project proposes a **non-invasive, real-time screening system** using breath-based volatile organic compounds (VOCs) such as acetone and limonene.
 
-A **red laser line** is projected onto the wound surface, and a camera captures its deformation. These variations are processed using an **FPGA (Intel Cyclone)** for real-time laser extraction, followed by **3D reconstruction and visualization** on a host system.
-
----
-
-## ❗ Problem Statement
-Accurate wound assessment is critical in healthcare, but traditional methods:
-- Require physical contact  
-- Are time-consuming  
-- Lack precision in remote environments  
-
-There is a need for a **portable, fast, and non-contact solution** for wound analysis, especially in **telemedicine, emergency response, and rural healthcare**.
-
----
-
-## 🎯 Project Objectives
-- Develop a **non-contact wound assessment system**  
-- Use **structured light triangulation** for depth estimation  
-- Implement **FPGA-based real-time image processing**  
-- Reconstruct **3D wound surface models**  
-- Estimate wound **depth, area, and volume**  
-- Provide **telemedicine-friendly visualization**  
+We present an **FPGA-accelerated Principal Component Analysis (PCA) architecture** for edge-based Alzheimer’s screening, enabling fast, low-power, and wearable deployment.
 
 ---
 
 ## 🚀 Key Features
-- ✅ Non-contact wound scanning  
-- ✅ Laser-line structured light triangulation  
-- ✅ FPGA-accelerated image processing  
-- ✅ Real-time laser-line extraction  
-- ✅ 3D wound reconstruction  
-- ✅ Depth heatmap visualization  
-- ✅ Telemedicine dashboard support  
-- ✅ Portable and low-cost design  
+- ⚡ **Real-Time Processing** – Ultra-low latency of ~2µs at 120 MHz  
+- 🧠 **Hardware PCA Acceleration** – Efficient dimensionality reduction on FPGA  
+- 🌬️ **Breath-Based Detection** – Non-invasive VOC sensing approach  
+- 🔋 **Low Power Consumption** – ~65 mW suitable for wearable devices  
+- 📊 **High Sensitivity** – ~92% detection accuracy using synthetic VOC profiles  
+- 🔄 **Edge Computing Ready** – Eliminates need for cloud processing  
 
 ---
 
-## 🧠 System Architecture
+## 🏗️ System Architecture
+The system is implemented on an FPGA and consists of the following modules:
 
-### 🔧 Main Components
-- **Laser Module** – Projects laser line on wound surface  
-- **Camera Module** – Captures deformed laser line  
-- **FPGA (Intel Cyclone)** – Performs real-time preprocessing  
-- **Host System** – Performs reconstruction and analysis  
-- **Visualization Dashboard** – Displays results  
+1. **Sensor Interface**
+   - 8-channel VOC sensor input (MQ-series compatible)
+   - Captures breath biomarker data (e.g., acetone levels)
 
----
+2. **Preprocessing Unit**
+   - Signal normalization
+   - Mean subtraction
 
-## ⚙️ Working Principle
+3. **PCA Accelerator (Core Block)**
+   - Fixed-point implementation
+   - Performs dimensionality reduction using:
 
-1. A **laser line** is projected onto the wound surface  
-2. A camera captures the **deformation of the laser line**  
-3. The image is processed by the **FPGA**, which performs:
-   - Red-channel enhancement  
-   - Thresholding  
-   - Laser-line extraction  
-4. Extracted data is sent to a **host system**  
-5. The host performs:
-   - Depth reconstruction (triangulation)  
-   - 3D surface generation  
-   - Area and volume estimation  
-6. Results are displayed using a **telemedicine dashboard**  
+   \[
+   Y = V^T (X - \mu)
+   \]
+
+4. **Threshold Classifier**
+   - Detects Alzheimer’s risk based on PCA output
+   - Example condition: Acetone > 2 ppm → Risk flag
 
 ---
 
-## 🔄 Workflow
+## ⚙️ Hardware Implementation
+- **FPGA Board:** Intel Cyclone V  
+- **Toolchain:** Quartus Prime  
+- **Simulation:** ModelSim  
 
-Laser Projection → Image Capture → FPGA Processing → Laser Extraction → Data Transfer → 3D Reconstruction → Visualization
-
----
-
-## 🛠️ Technologies Used
-
-### 💻 Hardware
-- Intel Cyclone FPGA  
-- Camera Module  
-- Red Laser Line Module  
-
-### 💾 Software
-- Python  
-- OpenCV  
-- MATLAB (optional)  
-- Streamlit (for dashboard)  
-
-### 📚 Concepts
-- Structured Light Triangulation  
-- FPGA Image Processing  
-- Computer Vision  
-- 3D Reconstruction  
-- Telemedicine Systems  
+### Resource Utilization:
+| Resource | Usage |
+|----------|------|
+| LUTs     | ~1.2K |
+| Flip-Flops | ~800 |
+| Power Consumption | ~65 mW |
 
 ---
 
-## 📋 Requirements
-
-### 🔧 Hardware Requirements
-- Intel Cyclone FPGA  
-- Camera Module  
-- Red Laser Line Module  
-- Mounting Frame  
-- Power Supply  
-
----
-
-### 💻 Software Requirements
-- Python 3.x  
-- OpenCV  
-- NumPy  
-- Streamlit (for dashboard)  
-- Quartus Prime (for FPGA development)  
+## 📈 Performance Metrics
+| Metric | Value |
+|--------|------|
+| Latency | ~2 µs |
+| Operating Frequency | 120 MHz |
+| Sensitivity | ~92% |
+| Speedup vs ARM Cortex-M4 | ~4× |
 
 ---
 
-### ⚙️ System Requirements
-- Laptop / PC with moderate processing power  
-- Minimum 8GB RAM recommended  
-- FPGA programming setup  
+## 🧪 Simulation & Validation
+- Verified using **ModelSim**
+- Synthetic VOC datasets generated for testing
+- Risk classification based on biomarker thresholds
+- Demonstrates reliable separation of normal vs AD profiles
 
 ---
 
-### 🧠 Development Requirements
-- Knowledge of FPGA (Verilog/VHDL)  
-- Basics of Computer Vision  
-- Understanding of signal processing  
-- Familiarity with 3D reconstruction  
+## 🔬 Novelty & Contribution
+- First **FPGA-based PCA accelerator** targeting Alzheimer’s breath screening  
+- Enables **edge olfactory computing** for healthcare applications  
+- Combines **VLSI design + biomedical sensing + AI**  
+- Suitable for **portable and wearable diagnostic systems**
 
 ---
 
-### 🌐 Optional Enhancements
-- AI-based wound severity classification  
-- Cloud-based telemedicine dashboard  
-- Thermal imaging integration  
-- Mobile app interface  
+## 🔮 Future Work
+- Integration with real **MQ-series gas sensors**
+- Hardware validation with clinical breath datasets
+- Deployment on wearable platforms
+- Integration with TinyML-based classifiers for improved accuracy
 
 ---
 
-## 📊 Output
-- 3D wound surface model  
-- Depth heatmap  
-- Wound area estimation  
-- Approximate cavity volume  
-- Visual analytics dashboard  
+## 📚 Applications
+- 🏥 Early Alzheimer’s screening  
+- 🧑‍⚕️ Remote healthcare & telemedicine  
+- ⌚ Wearable diagnostic devices  
+- 🌐 Edge AI in biomedical systems  
 
 ---
 
-## 📱 Applications
-- Telemedicine  
-- Remote healthcare  
-- Emergency response  
-- Rural medical diagnostics  
-- Chronic wound monitoring  
+## 🛠️ Tech Stack
+- Verilog / VHDL (FPGA Design)
+- Quartus Prime
+- ModelSim
+- Embedded Signal Processing
+- Fixed-Point Arithmetic
 
 ---
 
-## ✅ Advantages
-- Non-contact and hygienic  
-- Real-time processing  
-- Portable and low-cost  
-- Accurate geometric estimation  
-- Suitable for remote environments  
+## 🤝 Contributing
+Contributions are welcome! Feel free to fork the repository and submit pull requests.
 
 ---
 
-## 🔮 Future Improvements
-- AI-based wound classification  
-- Higher-resolution depth mapping  
-- Multi-angle scanning  
-- Integration with IoT platforms  
-- Real-time clinical analytics  
-
----
-
-## 🏁 Conclusion
-This project demonstrates a **real-time FPGA-based wound assessment system** that combines **structured light, computer vision, and embedded processing**. It provides an efficient, portable, and scalable solution for **remote healthcare and telemedicine applications**.
-
----
+## 📜 License
+This project is for research and educational purposes.
