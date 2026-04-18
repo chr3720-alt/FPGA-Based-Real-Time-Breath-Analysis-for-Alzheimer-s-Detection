@@ -1,15 +1,36 @@
-## 📌 Project Description
+# 🧠 FPGA-Based Olfactory Detection System (PCA + Classifier)
 
-This project implements an FPGA-based real-time breath analysis system for early Alzheimer’s Disease (AD) screening using volatile organic compound (VOC) signals. The design follows a modular architecture consisting of normalization, PCA-based feature extraction, and threshold-based classification.
+## 📌 Overview
+This project implements a **hardware-based olfactory detection system** using FPGA. The system processes multi-sensor inputs, applies **Principal Component Analysis (PCA)** for feature extraction, and performs **risk classification** in real time.
 
-The system is developed and verified in a structured, phase-wise approach:
+The design is developed using **Verilog HDL**, simulated in ModelSim, and synthesized using Quartus Prime.
 
-- **Phase 1:** Environment setup using Quartus Prime and ModelSim  
-- **Phase 2:** Development of core hardware modules (Normalization, PCA Core, Classifier)  
-- **Phase 3:** Integration into a top-level FPGA design  
-- **Phase 4:** Functional verification using a testbench in ModelSim  
-- **Phase 5:** Progressive enhancement with real PCA weights and fixed-point optimization  
+---
 
-A simplified PCA model is initially implemented using fixed weights to validate functionality. The system processes 8-channel input data and classifies outputs into “healthy” or “risk” based on computed features.
+## ⚙️ Development Workflow
 
-The primary objective is to demonstrate a **low-latency, edge-computing hardware pipeline** suitable for non-invasive biomedical screening and future wearable deployment.
+### 🧩 Phase 1: Environment Setup
+
+#### 🔧 Tools Required
+- Quartus Prime Lite  
+- ModelSim Intel FPGA Edition  
+
+#### 📁 Project Setup
+- Project Name: `olfactory_fpga`  
+- Target Device: Cyclone V (e.g., 5CEFA7F23C8)  
+- Files:
+  - `top_olfactory.v`  
+  - `normalize.v`  
+  - `pca_core.v`  
+  - `classifier.v`  
+
+---
+
+### 🧪 Phase 2: Module Design
+
+#### 1️⃣ Normalization Module
+- Accepts 8 sensor inputs  
+- Currently implemented as **pass-through** (can be upgraded later)
+
+```verilog
+assign out0 = in0; // same for all inputs
